@@ -71,7 +71,8 @@ module Pipedrive
         attrs['data'].is_a?(Array) ? attrs['data'].map {|data| self.new( 'data' => data ) } : []
       end
 
-      def all(response = nil, options={})
+      def all(response = nil, options={}, api_token = nil)
+        options.merge!({:api_token => api_token}) if api_token
         res = response || get(resource_path, options)
         if res.ok?
           res['data'].nil? ? [] : res['data'].map{|obj| new(obj)}
@@ -80,7 +81,8 @@ module Pipedrive
         end
       end
 
-      def create( opts = {} )
+      def create( opts = {}, api_token = nil)
+        opts.merge!({:api_token => api_token}) if api_token
         res = post resource_path, :body => opts
         if res.success?
           res['data'] = opts.merge res['data']
@@ -90,12 +92,15 @@ module Pipedrive
         end
       end
 
-      def find(id)
-        res = get "#{resource_path}/#{id}"
+      def find(id, api_token = nil)
+        opts = {}
+        opts = {:api_token => api_token} if api_token
+        res = get "#{resource_path}/#{id}", opts
         res.ok? ? new(res) : bad_response(res)
       end
 
-      def find_by_name(name, opts={})
+      def find_by_name(name, opts={}, api_token = nil)
+        opts.merge!({:api_token => api_token}) if api_token
         res = get "#{resource_path}/find", :query => { :term => name }.merge(opts)
         res.ok? ? new_list(res) : bad_response(res)
       end

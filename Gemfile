@@ -7,6 +7,8 @@ gem 'httparty'
 gem 'json', '>= 1.7.7'
 gem 'multi_xml', '>= 0.5.2'
 gem 'webmock'
+# gem "pry-nav"
+# gem "pry"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

@@ -1,6 +1,7 @@
 require 'helper'
 
 class TestPipedriveAuthentication < Test::Unit::TestCase
+
   should "set authentication credentials on Pipedrive::Base" do
     Pipedrive.authenticate("some-token")
     assert_equal "some-token", Pipedrive::Base.default_options[:default_params][:api_token]
