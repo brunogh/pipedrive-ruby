@@ -7,7 +7,6 @@ GEM
     addressable (2.3.4)
     bourne (1.1.2)
       mocha (= 0.10.5)
-    coderay (1.0.9)
     crack (0.4.0)
       safe_yaml (~> 0.9.0)
     git (1.2.5)
@@ -22,17 +21,10 @@ GEM
       rdoc
     json (1.7.7)
     metaclass (0.0.1)
-    method_source (0.8.2)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
     multi_json (1.6.1)
     multi_xml (0.5.3)
-    pry (0.9.12.2)
-      coderay (~> 1.0.5)
-      method_source (~> 0.8)
-      slop (~> 3.4)
-    pry-nav (0.2.3)
-      pry (~> 0.9.10)
     rake (10.0.3)
     rdoc (3.12.2)
       json (~> 1.4)
@@ -48,7 +40,6 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    slop (3.4.6)
     webmock (1.11.0)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
@@ -62,8 +53,6 @@ DEPENDENCIES
   jeweler (>= 1.8.4)
   json (>= 1.7.7)
   multi_xml (>= 0.5.2)
-  pry
-  pry-nav
   rdoc (~> 3.12)
   shoulda
   simplecov

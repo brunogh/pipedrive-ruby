@@ -42,8 +42,10 @@ module Pipedrive
     #
     # @param [Hash] opts
     # @return [Boolean]
-    def update(opts = {})
-      res = put "#{resource_path}/#{id}", :body => opts
+    def update(opts = {}, api_token = nil)
+      original_path = "#{resource_path}/#{id}"
+      path = api_token ? "#{original_path}?api_token=#{api_token}" : original_path
+      res = put path, :body => opts
       !!(res.success? && @table.merge!(res['data'].symbolize_keys))
     end
 
@@ -71,9 +73,9 @@ module Pipedrive
         attrs['data'].is_a?(Array) ? attrs['data'].map {|data| self.new( 'data' => data ) } : []
       end
 
-      def all(response = nil, options={}, api_token = nil)
-        options.merge!({:api_token => api_token}) if api_token
-        res = response || get(resource_path, options)
+      def all(response = nil, opts={}, api_token = nil)
+        opts.merge!({:api_token => api_token}) if api_token
+        res = response || get(resource_path, opts)
         if res.ok?
           res['data'].nil? ? [] : res['data'].map{|obj| new(obj)}
         else
@@ -82,8 +84,8 @@ module Pipedrive
       end
 
       def create( opts = {}, api_token = nil)
-        opts.merge!({:api_token => api_token}) if api_token
-        res = post resource_path, :body => opts
+        path = api_token ? "#{resource_path}?api_token=#{api_token}" : api_token
+        res = post path, :body => opts
         if res.success?
           res['data'] = opts.merge res['data']
           new(res)
@@ -94,8 +96,8 @@ module Pipedrive
 
       def find(id, api_token = nil)
         opts = {}
-        opts = {:api_token => api_token} if api_token
-        res = get "#{resource_path}/#{id}", opts
+        opts.merge!({"api_token" => api_token}) if api_token
+        res = get "#{resource_path}/#{id}", :query => opts
         res.ok? ? new(res) : bad_response(res)
       end
 
