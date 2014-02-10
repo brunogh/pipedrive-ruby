@@ -79,6 +79,7 @@ module Pipedrive
         if res.ok?
           res['data'].nil? ? [] : res['data'].map{|obj| new(obj)}
         else
+          puts res
           bad_response(res)
         end
       end
